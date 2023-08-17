@@ -4,6 +4,7 @@
   "description": "The minimal boilerplate that strives for maximal performance of client-side rendered apps.",
   "author": "Almog Gabay",
   "license": "MIT",
+  "repository": "https://github.com/theninthsky/ultimate-csr-boilerplate",
   "main": "index.tsx",
   "scripts": {
     "start": "webpack serve --mode development",
