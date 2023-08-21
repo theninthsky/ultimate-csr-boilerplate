@@ -16,13 +16,13 @@ To watch all of these features in action, visit https://client-side-rendering.pa
 ## Requirements
 
 Tools that optimize for performance usually require the developer to follow a set of rules to "help" them do it.
-<br>
-For example: Next.js requires you to use their file-based router in order to be able to apply automatic code-splitting and other optimizations, and modern frameworks require the use of signals (which are sometimes feel a little unintuitive) to skip full-tree renders.
 
-This boilerplate is no exception, thus it requires **two** things to be able to work its magic:
+For example: Next.js requires you to use its file-based router in order to be able to apply automatic code-splitting and other optimizations, and modern frameworks require the use of signals (which sometimes feel a little unintuitive) to skip full-tree renders.
+
+This boilerplate is no exception, thus it requires **two** things in order to fully apply its optimizations:
 
 1. **Lazily loading all pages and giving them unique names**.
-2. **Creating the _[pages-manifest](src/pages-manifest.json)_. A file that specifies the chunk names, paths and data to preload**.
+2. **Maintaining the _[pages-manifest](src/pages-manifest.json)_. A file that specifies the chunk names, paths and data to preload**.
 
 ### Naming Async Chunks (Pages)
 
@@ -35,7 +35,7 @@ const Home = lazy(() => import(/* webpackChunkName: 'home' */ 'pages/Home'))
 const LoremIpsum = lazy(() => import(/* webpackChunkName: 'lorem-ipsum' */ 'pages/LoremIpsum'))
 ```
 
-This will create the `home.[hash].js` and `lorem-ipsum.[hash].js` files (instead of the default, cryptic, `[id].[hash].js` files).
+This will create both `home.[hash].js` and `lorem-ipsum.[hash].js` files (instead of the default, cryptic, `[id].[hash].js` files).
 
 ### The Pages Manifest File Structure
 
