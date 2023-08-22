@@ -89,3 +89,45 @@ The logic is as follows: put the third element of the pathname in the first plac
 `crossorigin` is for _[CORS-enabled fetches](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload#cors-enabled_fetches)_.
 
 `preconnectURL` is for cases where the fetch request will be followed by requests to resources from a different origin.
+
+## Recommendations
+
+### Styling
+
+You should use _[@emotion/css](https://www.npmjs.com/package/@emotion/css)_ as your styling solution.
+
+This package is the perfect balance between potential and performance, between "styled components" and CSS modules.
+<br>
+It can even be used to mimic the API of CSS modules and thus allow for easy migration:
+
+```js
+import { css, cx } from '@emotion/css'
+
+import Back from './Back'
+
+const Title = ({ className, back, children, ...otherProps }) => {
+  return (
+    <div {...otherProps}>
+      {back && <Back className={style.back} />}
+
+      <h1 className={cx(style.wrapper, className)}>{children}</h1>
+    </div>
+  )
+}
+
+const style = {
+  wrapper: css`
+    font-weight: 500;
+    color: var(--primary-color);
+  `,
+  back: css`
+    margin-right: 20px;
+  `
+}
+
+export default Title
+```
+
+_Note that if you choose to use CSS modules instead, you should *NOT* extract CSS to separate files (typically done by [mini-css-extract-plugin](https://www.npmjs.com/package/mini-css-extract-plugin))._
+<br>
+_Despite the fact that the advantages of this extraction are mostly negligible nowadays, when used together with code-splitting, it will produce severe styling override issues with shared components._
