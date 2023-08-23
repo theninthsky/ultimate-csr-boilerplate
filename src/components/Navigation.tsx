@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { css } from '@emotion/css'
 
 import pagesManifest from 'pages-manifest.json'
-import NavigationLink from './NavigationLink'
+import NavigationLink from 'components/common/NavigationLink'
 
 const Navigation = () => {
   const links = useMemo(

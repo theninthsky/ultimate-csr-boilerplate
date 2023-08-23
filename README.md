@@ -39,7 +39,7 @@ This will create both `home.[hash].js` and `lorem-ipsum.[hash].js` files (instea
 
 ### The Pages Manifest File Structure
 
-To easily describe what properties should be in the _pages-manifest_ JSON file, we'll use a typescript-like definition:
+To easily describe what properties should be in the _pages-manifest_ JSON file, we'll use a TypeScript-like definition:
 
 _[pages-manifest.json](src/pages-manifest.json)_
 

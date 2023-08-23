@@ -2,7 +2,7 @@ import { useRef, FC } from 'react'
 import { NavLink, NavLinkProps } from 'react-router-dom'
 import { css, cx } from '@emotion/css'
 
-import useTransitionedNavigate from 'hooks/useTransitionedNavigate'
+import useTransitionNavigate from 'hooks/useTransitionNavigate'
 
 export type NavigationLinkProps = NavLinkProps & {
   to: string
@@ -11,7 +11,7 @@ export type NavigationLinkProps = NavLinkProps & {
 const NavigationLink: FC<NavigationLinkProps> = ({ className, to, children, ...otherProps }) => {
   const ref = useRef<HTMLAnchorElement>(null)
 
-  const navigate = useTransitionedNavigate()
+  const navigate = useTransitionNavigate()
 
   const baseURL = to.replace('/*', '')
 
