@@ -33,12 +33,20 @@ const BOT_AGENTS = [
   'telegrambot'
 ]
 
-const fetchPrerendered = async request => {
-  const { url, headers } = request
-  const prerenderUrl = `https://service.prerender.io/${url}`
+const fetchPrerendered = async ({ url, headers }, userAgent) => {
   const headersToSend = new Headers(headers)
 
-  headersToSend.set('X-Prerender-Token', 'YOUR_PRERENDER_TOKEN')
+  /* Prerender.io */
+  // const prerenderUrl = `https://service.prerender.io/${url}`
+  //
+  // headersToSend.set('X-Prerender-Token', 'YOUR_PRERENDER_IO_TOKEN')
+  /****************/
+
+  /* Prerender */
+  const prerenderUrl = new URL(`${'YOUR_PRERENDER_SERVER_URL'}/render?url=${url}`)
+
+  if (userAgent.includes('android')) prerenderUrl.searchParams.append('width', 375)
+  /*************/
 
   const prerenderRequest = new Request(prerenderUrl, {
     headers: headersToSend,
@@ -56,7 +64,9 @@ export default {
     const userAgent = (request.headers.get('User-Agent') || '').toLowerCase()
 
     // a crawler that requests the document
-    if (BOT_AGENTS.some(agent => userAgent.includes(agent)) && !pathname.includes('.')) return fetchPrerendered(request)
+    if (BOT_AGENTS.some(agent => userAgent.includes(agent)) && !pathname.includes('.')) {
+      return fetchPrerendered(request, userAgent)
+    }
 
     return env.ASSETS.fetch(request)
   }
