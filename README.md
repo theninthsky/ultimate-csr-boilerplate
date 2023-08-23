@@ -48,14 +48,13 @@ _[pages-manifest.json](src/pages-manifest.json)_
   {
     "chunk": string,
     "path": string,
-    "data"?: [
+    "data"?:
       {
         "url": string,
         "dynamicPathIndexes"?: number[],
         "crossorigin"?: string,
         "preconnectURL"?: string
-      }
-    ]
+      }[]
   }
 ]
 ```
@@ -68,11 +67,11 @@ _[pages-manifest.json](src/pages-manifest.json)_
 
 `url` is the data API URL.
 
-`dynamicPathIndexes` is for cases where the data endpoint is dynamic and depends on the pathname (such as `https://api.my-site.post/{id}`).
+`dynamicPathIndexes` is for cases where the data endpoint is dynamic and depends on the pathname (such as `https://api.my-site.post/:id`).
 <br>
 In such cases, the `url` should contain `$` signs for all dynamic parameters and this property should specify their indexes in the `path`.
 
-For example, if the `path` is `https://my-ecommerce-site/:category/:id` and the endpoint is `https://api.my-ecommerce-site/{id}/{category}`, then:
+For example, if the `path` is `https://my-ecommerce-site/:category/:id` and the endpoint is `https://api.my-ecommerce-site/:id/:category`, then:
 
 ```
 {
