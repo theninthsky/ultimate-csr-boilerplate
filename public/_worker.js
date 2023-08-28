@@ -1,5 +1,4 @@
 const BOT_AGENTS = [
-  'googlebot',
   'bingbot',
   'yahoo! slurp',
   'yandex',
@@ -33,20 +32,20 @@ const BOT_AGENTS = [
   'telegrambot'
 ]
 
-const fetchPrerendered = async ({ url, headers }, userAgent) => {
+const fetchPrerendered = async ({ url, headers }) => {
   const headersToSend = new Headers(headers)
+
+  /* Prerender */
+  const prerenderUrl = new URL(`${'YOUR_PRERENDER_SERVER_URL'}/render?url=${url}`)
+  /*************/
+
+  /* OR */
 
   /* Prerender.io */
   // const prerenderUrl = `https://service.prerender.io/${url}`
   //
   // headersToSend.set('X-Prerender-Token', 'YOUR_PRERENDER_IO_TOKEN')
   /****************/
-
-  /* Prerender */
-  const prerenderUrl = new URL(`${'YOUR_PRERENDER_SERVER_URL'}/render?url=${url}`)
-
-  if (userAgent.includes('android')) prerenderUrl.searchParams.append('width', 375)
-  /*************/
 
   const prerenderRequest = new Request(prerenderUrl, {
     headers: headersToSend,
@@ -65,7 +64,7 @@ export default {
 
     // a crawler that requests the document
     if (BOT_AGENTS.some(agent => userAgent.includes(agent)) && !pathname.includes('.')) {
-      return fetchPrerendered(request, userAgent)
+      return fetchPrerendered(request)
     }
 
     return env.ASSETS.fetch(request)
