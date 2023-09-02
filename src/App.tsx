@@ -2,6 +2,7 @@ import { lazy, Suspense, FC } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 import pagesManifest from 'pages-manifest.json'
+import useExposeNavigationFunction from 'hooks/useExposeNavigationFunction'
 import Navigation from 'components/Navigation'
 import Layout from 'components/Layout'
 
@@ -16,6 +17,8 @@ const routes = pagesManifest.map(({ path }, ind) => {
 })
 
 const App: FC<{}> = () => {
+  useExposeNavigationFunction()
+
   return (
     <>
       <Navigation />

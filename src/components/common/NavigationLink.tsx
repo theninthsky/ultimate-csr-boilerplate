@@ -8,12 +8,28 @@ export type NavigationLinkProps = NavLinkProps & {
   to: string
 }
 
-const NavigationLink: FC<NavigationLinkProps> = ({ className, to, children, ...otherProps }) => {
+const NavigationLink: FC<NavigationLinkProps> = ({
+  className,
+  to,
+  replace,
+  state,
+  preventScrollReset,
+  relative,
+  onClick,
+  children,
+  ...otherProps
+}) => {
   const ref = useRef<HTMLAnchorElement>(null)
 
   const navigate = useTransitionNavigate()
 
   const baseURL = to.replace('/*', '')
+
+  const onLinkClick = event => {
+    event.preventDefault()
+    navigate(baseURL, { replace, state, preventScrollReset, relative })
+    onClick?.(event)
+  }
 
   return (
     <NavLink
@@ -21,10 +37,7 @@ const NavigationLink: FC<NavigationLinkProps> = ({ className, to, children, ...o
       ref={ref}
       to={baseURL}
       end
-      onClick={event => {
-        event.preventDefault()
-        navigate(baseURL)
-      }}
+      onClick={onLinkClick}
       {...otherProps}
     >
       {children}
