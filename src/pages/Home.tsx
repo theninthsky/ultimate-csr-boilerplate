@@ -25,8 +25,8 @@ const rotate = keyframes`
 const style = {
   logo: css`
     display: block;
-    width: 400px;
-    margin: 60px auto;
+    width: 200px;
+    margin: 25vh auto;
     animation: ${rotate} 5s linear infinite;
   `
 }
