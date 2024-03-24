@@ -2,7 +2,7 @@
   "name": "ultimate-csr-boilerplate",
   "version": "1.0.0",
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=20.0.0"
   },
   "description": "The minimal boilerplate that strives for maximal performance of client-side rendered apps.",
   "author": "Almog Gabay",
@@ -26,8 +26,8 @@
     "@svgr/webpack": "^8.0.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "@typescript-eslint/parser": "^6.4.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.8.1",
     "eslint": "^8.47.0",
