@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { css, keyframes } from '@emotion/css'
 
-import pagesManifest from 'pages-manifest.json'
+import pagesManifest from 'pages-manifest'
 import Title from 'components/common/Title'
 import Logo from 'images/logo.svg'
 

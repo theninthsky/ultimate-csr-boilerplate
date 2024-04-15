@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from 'react'
 import { css } from '@emotion/css'
 
-import pagesManifest from 'pages-manifest.json'
+import pagesManifest from 'pages-manifest'
 import Title from 'components/common/Title'
 
 const {

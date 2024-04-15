@@ -10,20 +10,20 @@ declare module '*.svg' {
   export default any
 }
 
-declare module 'pages-manifest.json' {
+declare module 'pages-manifest' {
   const pages: [
     {
       chunk: string
       path: string
       title: string
-      data: [
-        {
-          url: string
-          dynamicPathIndexes: number[]
-          crossorigin: string
-          preconnectURL: string
-        }
-      ]
+      description: string
+      data: {
+        url: any
+        crossorigin: string
+        preconnectURL: string
+        menuPreload: boolean
+      }[]
+      menuItem: boolean
     }
   ]
 

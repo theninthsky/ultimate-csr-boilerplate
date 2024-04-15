@@ -2,7 +2,7 @@ import { Readable } from 'stream'
 import { writeFile } from 'fs/promises'
 import { SitemapStream, streamToPromise } from 'sitemap'
 
-import pagesManifest from '../src/pages-manifest.json' assert { type: 'json' }
+import pagesManifest from '../src/pages-manifest.js'
 
 const paths = pagesManifest.filter(({ path }) => !path.includes(':')).map(({ path }) => path)
 const stream = new SitemapStream({ hostname: 'https://example.com' })

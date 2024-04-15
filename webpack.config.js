@@ -1,17 +1,18 @@
-const path = require('path')
-const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const ReactRefreshTypeScript = require('react-refresh-typescript')
-const ForkTsCheckerPlugin = require('fork-ts-checker-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
-const { InjectManifest } = require('workbox-webpack-plugin')
-const HtmlPlugin = require('html-webpack-plugin')
-const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
+import path from 'node:path'
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin'
+import ESLintPlugin from 'eslint-webpack-plugin'
+import { InjectManifest } from 'workbox-webpack-plugin'
+import HtmlPlugin from 'html-webpack-plugin'
+import HtmlInlineScriptPlugin from 'html-inline-script-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 
-const pagesManifest = require('./src/pages-manifest.json')
-const htmlTemplate = require('./public/index')
+import pagesManifest from './src/pages-manifest.js'
+import htmlTemplate from './public/index.js'
 
-module.exports = (_, { mode }) => {
+const __dirname = import.meta.dirname
+
+export default (_, { mode }) => {
   const production = mode === 'production'
 
   return {
@@ -21,37 +22,40 @@ module.exports = (_, { mode }) => {
       devMiddleware: { stats: 'errors-warnings' }
     },
     cache: { type: 'filesystem' },
+    experiments: { lazyCompilation: !production },
     devtool: production ? 'source-map' : 'inline-source-map',
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
+    output: {
+      path: path.join(__dirname, 'build'),
+      publicPath: '/',
+      filename: 'scripts/[name].[contenthash:6].js',
+      clean: true
+    },
     module: {
       rules: [
         {
           test: /\.(t|j)sx?$/i,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'ts-loader',
-              options: {
-                getCustomTransformers: () => ({
-                  before: production ? [] : [ReactRefreshTypeScript()]
-                }),
-                transpileOnly: true
+          exclude: /(node_modules)/,
+          use: {
+            loader: 'swc-loader',
+            options: {
+              jsc: {
+                parser: { syntax: 'typescript', tsx: true },
+                transform: {
+                  react: { runtime: 'automatic', refresh: true }
+                },
+                target: 'es2017',
+                preserveAllComments: true
               }
             }
-          ]
+          }
         },
         {
           test: /\.css$/i,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: { modules: { localIdentName: '[local]-[hash:base64:5]' } }
-            }
-          ]
+          use: ['style-loader', 'css-loader']
         },
         {
           test: /\.svg$/i,
@@ -63,12 +67,6 @@ module.exports = (_, { mode }) => {
           generator: { filename: 'images/[name].[hash:6][ext]' }
         }
       ]
-    },
-    output: {
-      path: path.join(__dirname, 'build'),
-      publicPath: '/',
-      filename: 'scripts/[name].[contenthash:6].js',
-      clean: true
     },
     optimization: {
       runtimeChunk: 'single',

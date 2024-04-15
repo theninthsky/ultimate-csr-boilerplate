@@ -17,12 +17,12 @@ To watch all of these features in action, visit https://client-side-rendering.pa
 
 Tools that optimize for performance usually require the developer to follow a set of rules to "help" them do it.
 
-For example: Next.js requires you to use its file-based router in order to be able to apply automatic code-splitting and other optimizations, and modern frameworks require the use of signals (which sometimes feel a little unintuitive) to skip full-tree renders.
+For example: Next.js and Remix require you to use their file-based routers in order to be able to apply automatic code-splitting and other optimizations, and modern frameworks require the use of signals (which sometimes feel a little unintuitive) to skip full-tree rerenders.
 
 This boilerplate is no exception, thus it requires **two** things in order to fully apply its optimizations:
 
 1. **Lazily loading all pages and giving them unique names**.
-2. **Maintaining the _[pages-manifest](src/pages-manifest.json)_. A file that specifies the chunk names, paths and data to preload**.
+2. **Maintaining the _[pages-manifest](src/pages-manifest.json)_, a file that specifies the chunk names, paths and data to preload**.
 
 ### Naming Async Chunks (Pages)
 
@@ -51,7 +51,6 @@ _[pages-manifest.json](src/pages-manifest.json)_
     "data"?:
       {
         "url": string,
-        "dynamicPathIndexes"?: number[],
         "crossorigin"?: string,
         "preconnectURL"?: string
       }[]
@@ -66,24 +65,6 @@ _[pages-manifest.json](src/pages-manifest.json)_
 `data` can be supplied if the page has dynamic data that will be fetched right when it loads.
 
 `url` is the data API URL.
-
-`dynamicPathIndexes` is for cases where the data endpoint is dynamic and depends on the pathname (such as `https://api.my-site.post/:id`).
-<br>
-In such cases, the `url` should contain `$` signs for all dynamic parameters and this property should specify their indexes in the `path`.
-
-For example, if the `path` is `https://my-ecommerce-site/:category/:id` and the endpoint is `https://api.my-ecommerce-site/:id/:category`, then:
-
-```
-{
-  "path": "https://my-ecommerce-site/:category/:id",
-  "data": [
-    "url": "https://api.my-ecommerce-site/$/$",
-    "dynamicPathIndexes": [3, 2]
-  ]
-}
-```
-
-The logic is as follows: put the third element of the pathname in the first placeholder (`$`) and the second element of the pathname in the second placeholder (`$`).
 
 `crossorigin` is for _[CORS-enabled fetches](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload#cors-enabled_fetches)_.
 

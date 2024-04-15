@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { css } from '@emotion/css'
 
-import pagesManifest from 'pages-manifest.json'
+import pagesManifest from 'pages-manifest'
 import NavigationLink from 'components/common/NavigationLink'
 
 const Navigation = () => {
