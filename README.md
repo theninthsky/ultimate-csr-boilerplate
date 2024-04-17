@@ -13,6 +13,13 @@ Fully abiding by this boilerplate's requirements grants you the following featur
 
 To watch all of these features in action, visit https://client-side-rendering.pages.dev.
 
+## Installation
+
+```sh
+git clone https://github.com/theninthsky/ultimate-csr-boilerplate.git
+npm i
+```
+
 ## Requirements
 
 Tools that optimize for performance usually require the developer to follow a set of rules to "help" them do it.
@@ -39,32 +46,44 @@ This will create both `home.[hash].js` and `lorem-ipsum.[hash].js` files (instea
 
 ### The Pages Manifest File Structure
 
-To easily describe what properties should be in the _pages-manifest_ JSON file, we'll use a TypeScript-like definition:
+To best describe what properties should be in the _pages-manifest_ file, we'll use a TypeScript-like definition:
 
-_[pages-manifest.json](src/pages-manifest.json)_
+_[pages-manifest.js](src/pages-manifest.js)_
 
 ```js
 [
   {
-    "chunk": string,
-    "path": string,
-    "data"?:
+    chunk: string,
+    path: string,
+    data?:
       {
-        "url": string,
-        "crossorigin"?: string,
-        "preconnectURL"?: string
+        url: string | (params) => string,
+        crossorigin?: string,
+        preconnectURL?: string
       }[]
   }
 ]
 ```
 
-`chunk` is the unique page name we chose via magic comments.
+`chunk` is the unique page name we chose via magic comments. The name "main" cannot be used.
 
 `path` is the pathname of the page (like `/`, `/about`, `/posts`...).
 
 `data` can be supplied if the page has dynamic data that will be fetched right when it loads.
 
-`url` is the data API URL.
+`url` is the data API URL. Can be a string or a function that receives the dynamic path params and returns a string.
+
+For example:
+
+```js
+{
+    chunk: 'products',
+    path: '/products/:category/:page',
+    data: {
+      url: ({ category, page }) => `https://www.my-api.com/products/${category}/${page}`
+    }
+  }
+```
 
 `crossorigin` is for _[CORS-enabled fetches](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload#cors-enabled_fetches)_.
 
