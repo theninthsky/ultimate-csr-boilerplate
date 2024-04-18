@@ -14,7 +14,7 @@ const LoremIpsum: FC<{}> = () => {
 
   useEffect(() => {
     const fetchLoremIpsum = async () => {
-      const res = await fetch(data.url)
+      const res = await fetch(data.url as string)
       const json = await res.json()
 
       setLoremIpsum(json)

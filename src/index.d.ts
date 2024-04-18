@@ -10,20 +10,19 @@ declare module '*.svg' {
   export default any
 }
 
+type PageData = {
+  url: string | ((params: { [x: string]: string }) => string)
+  crossorigin?: string
+  preconnectURL?: string
+}
+
 declare module 'pages-manifest' {
   const pages: [
     {
       chunk: string
       path: string
-      title: string
-      description: string
-      data: {
-        url: any
-        crossorigin: string
-        preconnectURL: string
-        menuPreload: boolean
-      }[]
-      menuItem: boolean
+      title?: string
+      data: PageData[]
     }
   ]
 

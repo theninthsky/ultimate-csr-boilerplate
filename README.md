@@ -29,7 +29,7 @@ For example: Next.js and Remix require you to use their file-based routers in or
 This boilerplate is no exception, thus it requires **two** things in order to fully apply its optimizations:
 
 1. **Lazily loading all pages and giving them unique names**.
-2. **Maintaining the _[pages-manifest](src/pages-manifest.json)_, a file that specifies the chunk names, paths and data to preload**.
+2. **Maintaining the _[pages-manifest](src/pages-manifest.js)_, a file that specifies the chunk names, paths and data to preload**.
 
 ### Naming Async Chunks (Pages)
 
@@ -53,12 +53,12 @@ _[pages-manifest.js](src/pages-manifest.js)_
 ```js
 [
   {
-    chunk: string,
-    path: string,
+    chunk: string
+    path: string
     data?:
       {
-        url: string | (params) => string,
-        crossorigin?: string,
+        url: string | ((params: { [x: string]: string }) => string)
+        crossorigin?: string
         preconnectURL?: string
       }[]
   }
