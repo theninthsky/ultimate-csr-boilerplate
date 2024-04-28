@@ -1,6 +1,6 @@
 <h1 align="center">Ultimate CSR Boilerplate</h1>
 
-_This project was replaced by the [BOILERPLATE.md](https://github.com/theninthsky/client-side-rendering/blob/main/BOILERPLATE.md) instruction file found in the original case study._
+**This project was replaced by the [BOILERPLATE.md](https://github.com/theninthsky/client-side-rendering/blob/main/BOILERPLATE.md) instruction file found in the original case study.**
 
 Fully abiding by this boilerplate's requirements grants you the following features:
 
